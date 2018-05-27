@@ -15,7 +15,7 @@ public class AppMain {
    * @throws IOException */
   public void connectDB() throws SQLException, ClassNotFoundException, IOException { 
     Class.forName("org.apache.derby.jdbc.ClientDriver");
-    con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample");
+    con = DriverManager.getConnection("jdbc:derby://localhost/sample");
     con.setAutoCommit(false);
     System.out.println("DB connect success");
   }

@@ -17,11 +17,6 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.derby</groupId>
-      <artifactId>derby</artifactId>
-      <version>10.10.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.derby</groupId>
       <artifactId>derbyclient</artifactId>
       <version>10.10.1.1</version>
     </dependency>
@@ -42,22 +37,13 @@
         <configuration>
           <derbyHome>${derby.home}</derbyHome>
         </configuration>
-        <executions>
-          <execution>
-            <id>start-derby</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>start</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
         <version>5.0.7</version>
         <configuration>
-          <url>jdbc:derby:${derby.home}\${derby.dbname};create=true</url>
+          <url>jdbc:derby://localhost/${derby.dbname};create=true</url>
           <locations>
             <location>filesystem:sql/migrations</location>
           </locations>
