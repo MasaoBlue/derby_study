@@ -21,6 +21,8 @@ cd derby_study
 ### DBサーバ起動
 ```sh
 mvn org.carlspring.maven:derby-maven-plugin:run
+
+# jdbc接続文字列は「jdbc:derby://localhost/sample」
 ```
 
 ### DB初期化
