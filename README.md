@@ -7,6 +7,8 @@
 - JRE ver 1.8以上
 - [Apache Maven](https://maven.apache.org/)3.5.3以上
 
+※Linux系の場合、以下の「mvnw.cmd」を「./mvnw」に置き換えて実行してください。
+
 ## 起動手順
 
 ### ソースを取得
@@ -20,7 +22,7 @@ cd derby_study
 
 ### DBサーバ起動
 ```sh
-mvn org.carlspring.maven:derby-maven-plugin:run
+mvnw.cmd derby:run
 
 # jdbc接続文字列は「jdbc:derby://localhost/sample」
 ```
@@ -28,15 +30,15 @@ mvn org.carlspring.maven:derby-maven-plugin:run
 ### DB初期化
 ```sh
 # FlywayでDBマイグレーションの初期設定、およびマイグレーションを実行
-mvn flyway:baseline flyway:migrate
+mvnw.cmd flyway:baseline flyway:migrate
 
 # DBに接続できることを確認
-mvn test
+mvnw.cmd test
 ```
 
 
 ## 停止手順
 ### DBサーバ停止
 ```sh
-mvn org.carlspring.maven:derby-maven-plugin:stop
+mvnw.cmd org.carlspring.maven:derby-maven-plugin:stop
 ```
