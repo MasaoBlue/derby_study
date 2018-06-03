@@ -10,11 +10,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <derby.home>${basedir}\derby</derby.home>
-    <derby.dbname>sample</derby.dbname>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+      <version>10.10.1.1</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derbyclient</artifactId>
@@ -29,6 +32,12 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.carlspring.maven</groupId>
@@ -37,17 +46,45 @@
         <configuration>
           <derbyHome>${derby.home}</derbyHome>
         </configuration>
+        <executions>
+          <execution>
+            <id>start-derby</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
         <version>5.0.7</version>
         <configuration>
-          <url>jdbc:derby://localhost/${derby.dbname};create=true</url>
+          <url>jdbc:derby:${derby.home}/${derby.dbname};create=true</url>
           <locations>
             <location>filesystem:sql/migrations</location>
           </locations>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <id>read-prop</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>${project.basedir}/src/main/resources/derby.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

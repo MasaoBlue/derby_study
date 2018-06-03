@@ -20,25 +20,11 @@ cd derby_study
 
 以下、`derby_study`ディレクトリ配下で実行
 
-### DBサーバ起動
-```sh
-mvnw.cmd derby:run
-
-# jdbc接続文字列は「jdbc:derby://localhost/sample」
-```
-
 ### DB初期化
 ```sh
 # FlywayでDBマイグレーションの初期設定、およびマイグレーションを実行
-mvnw.cmd flyway:baseline flyway:migrate
+mvnw.cmd initialize flyway:baseline flyway:migrate
 
 # DBに接続できることを確認
 mvnw.cmd test
-```
-
-
-## 停止手順
-### DBサーバ停止
-```sh
-mvnw.cmd org.carlspring.maven:derby-maven-plugin:stop
 ```
